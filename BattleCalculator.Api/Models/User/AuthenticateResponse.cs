@@ -1,6 +1,6 @@
-﻿namespace BattleCalculator.Api.Models.Auth
+﻿namespace BattleCalculator.Api.Models.User
 {
-    public class AuthData
+    public class AuthenticateResponse
     {
         public string Token { get; set; }
         public long TokenExpirationTime { get; set; }

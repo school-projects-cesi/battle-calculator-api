@@ -1,4 +1,4 @@
-﻿using BattleCalculator.Api.Models.Auth;
+﻿using BattleCalculator.Api.Models.User;
 using BattleCalculator.Api.Services.Abstraction;
 using Microsoft.Extensions.Options;
 using System;
@@ -7,6 +7,8 @@ using System.Text;
 using BC = BCrypt.Net.BCrypt;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using BattleCalculator.Model.Entities;
+using System.Threading.Tasks;
 
 namespace BattleCalculator.Api.Services
 {
@@ -20,7 +22,7 @@ namespace BattleCalculator.Api.Services
 		}
 
 
-		public AuthData GetAuthData(int id)
+		public AuthenticateResponse Authenticate(int id)
 		{
 			DateTime expirationTime = DateTime.UtcNow.AddMinutes(_jwtSettings.Lifespan);
 
@@ -40,7 +42,7 @@ namespace BattleCalculator.Api.Services
 			JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
 			string token = tokenHandler.WriteToken(tokenHandler.CreateToken(tokenDescriptor));
 
-			return new AuthData
+			return new AuthenticateResponse
 			{
 				Token = token,
 				TokenExpirationTime = ((DateTimeOffset)expirationTime).ToUnixTimeSeconds(),

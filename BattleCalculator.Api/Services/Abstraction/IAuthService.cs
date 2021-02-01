@@ -1,4 +1,5 @@
-﻿using BattleCalculator.Api.Models.Auth;
+﻿using BattleCalculator.Api.Models.User;
+using BattleCalculator.Model.Entities;
 
 namespace BattleCalculator.Api.Services.Abstraction
 {
@@ -6,6 +7,6 @@ namespace BattleCalculator.Api.Services.Abstraction
     {
         string HashPassword(string password);
         bool VerifyPassword(string password, string hashedPassword);
-        AuthData GetAuthData(int id);
+        AuthenticateResponse Authenticate(int id);
     }
 }
