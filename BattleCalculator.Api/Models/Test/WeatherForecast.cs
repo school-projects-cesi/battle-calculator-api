@@ -1,6 +1,6 @@
-using System;
+﻿using System;
 
-namespace BattleCalculator.Api
+namespace BattleCalculator.Api.Models.Test
 {
     public class WeatherForecast
     {

@@ -7,18 +7,14 @@ using BattleCalculator.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using VueCliMiddleware;
 
 namespace BattleCalculator.Api
 {
@@ -40,6 +36,9 @@ namespace BattleCalculator.Api
 			services.AddDbContext<ApplicationDbContext>(options =>
 				options.UseMySQL(Configuration.GetConnectionString("DefaultConnection"))
 			);
+
+			// In production, the React files will be served from this directory
+			services.AddSpaStaticFiles(options => options.RootPath = "client-app/dist");
 
 			// settings
 			IConfigurationSection jwtSettingsSection = Configuration.GetSection("JwtSettings");
@@ -77,21 +76,41 @@ namespace BattleCalculator.Api
 		/// </summary>
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
-			app.UseApiResponseAndExceptionWrapper(new AutoWrapperOptions { UseApiProblemDetailsException = true });
+			app.UseApiResponseAndExceptionWrapper(new AutoWrapperOptions
+			{
+				UseApiProblemDetailsException = true,
+				IsApiOnly = false,
+				WrapWhenApiPathStartsWith = "/api"
+			});
 
 			if (env.IsDevelopment())
 			{
 				// app.UseDeveloperExceptionPage();
 			}
 
+			// fichier statics
+			app.UseStaticFiles();
+			app.UseSpaStaticFiles();
+
+			// routing
 			app.UseRouting();
 
+			// authentification
 			app.UseAuthentication();
 			app.UseAuthorization();
 
-			app.UseEndpoints(endpoints =>
+			// endpoints controller
+			app.UseEndpoints(endpoints => endpoints.MapControllers());
+
+			// version dev pour le dev
+			app.UseSpa(spa =>
 			{
-				endpoints.MapControllers();
+				spa.Options.SourcePath = "client-app";
+
+				if (env.IsDevelopment())
+				{
+					spa.UseVueCli(npmScript: "serve");
+				}
 			});
 		}
 	}
