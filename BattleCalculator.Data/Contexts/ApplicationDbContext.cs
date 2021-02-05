@@ -39,6 +39,33 @@ namespace BattleCalculator.Data.Contexts
                 .HasIndex(user => user.Email)
                 .IsUnique();
         }
+
+        public void ConfigureModelBuilderForGame(ModelBuilder modelBuilder)
+        {
+            // validations
+            modelBuilder.Entity<Game>()
+                .Property(game => game.Level)
+                .IsRequired();
+
+            modelBuilder.Entity<Game>()
+                .Property(game => game.Chrono)
+                .HasMaxLength(20)
+                .IsRequired();
+
+            modelBuilder.Entity<Game>()
+                .Property(game => game.TotalScore);
+
+            modelBuilder.Entity<Game>()
+                .Property(game => game.CreatedAt)
+                .IsRequired();
+
+            modelBuilder.Entity<Game>()
+                .Property(game => game.EndedAt);
+
+            modelBuilder.Entity<Game>()
+                .Property(game => game.Ended)
+                .IsRequired();
+        }
         #endregion
     }
 }

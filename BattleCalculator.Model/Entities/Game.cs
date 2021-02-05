@@ -11,6 +11,7 @@ namespace BattleCalculator.Model.Entities
         public string Chrono { get; set; }
         public int TotalScore { get; set; }
         public DateTime CreatedAt { get; set; }
+        public DateTime EndedAt { get; set; }
         public bool Ended { get; set; }
     }
 }

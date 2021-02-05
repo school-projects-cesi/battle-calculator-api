@@ -29,5 +29,5 @@ namespace BattleCalculator.Api.Services
 			return game;
 		}
 	}
-	}
+	
 }
