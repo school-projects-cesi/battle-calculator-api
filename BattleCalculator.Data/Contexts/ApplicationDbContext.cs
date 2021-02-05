@@ -8,6 +8,7 @@ namespace BattleCalculator.Data.Contexts
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Game> Games { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
