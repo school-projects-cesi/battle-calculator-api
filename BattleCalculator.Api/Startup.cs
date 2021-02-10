@@ -64,8 +64,13 @@ namespace BattleCalculator.Api
 
 			// services and repositories
 			services.AddScoped<IUserRepository, UserRepository>();
+			services.AddTransient<IGameRepository, GameRepository>();
 
 			services.AddTransient<IAuthService, AuthService>();
+
+			services.AddTransient<IGameService, GameService>();
+
+
 
 			// controllers
 			services.AddControllers()

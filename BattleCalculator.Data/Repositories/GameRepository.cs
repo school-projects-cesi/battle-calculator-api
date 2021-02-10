@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BattleCalculator.Data.Repositories
 {
-    class GameRepository : EntityBaseRepository<Game>, IGameRepository
+    public class GameRepository : EntityBaseRepository<Game>, IGameRepository
     {
         public GameRepository(ApplicationDbContext context) : base(context) { }
     }

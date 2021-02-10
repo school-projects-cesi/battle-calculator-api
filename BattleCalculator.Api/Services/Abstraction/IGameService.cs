@@ -9,6 +9,6 @@ namespace BattleCalculator.Api.Services.Abstraction
 {
 	public interface IGameService
 	{
-		Task<Game> NewGame(CreateGameRequest model);
+		Task<Game> Create(CreateGameRequest model);
 	}
 }

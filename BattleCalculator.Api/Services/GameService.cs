@@ -11,7 +11,11 @@ namespace BattleCalculator.Api.Services
 	{
 		private readonly IGameRepository _gameRepository;
 
-		public async Task<Game> NewGame(CreateGameRequest model)
+		public GameService(IGameRepository gameRepository)
+		{
+			_gameRepository = gameRepository;
+		}
+		public async Task<Game> Create(CreateGameRequest model)
 		{
 			Game game = new Game
 			{

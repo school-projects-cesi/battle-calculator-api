@@ -13,19 +13,23 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BattleCalculator.Api.Controllers
 {
-	public class GameController : BaseApiController
+	public class GamesController : BaseApiController
 	{
 		private readonly IGameService _gameService;
-		private readonly IGameRepository _gameRepository;
 
-		[HttpPost("[action]")]
-		public async Task<CreateGameResponse> CreateGame([FromBody] CreateGameRequest model)
+		public GamesController(IGameService gameService)
+		{
+			_gameService = gameService;
+		}
+
+		[HttpPost]
+		public async Task<CreateGameResponse> Post([FromBody] CreateGameRequest model)
 		{
 			// vérifie que les données de l'utilisateur sont correct
 			if (!ModelState.IsValid)
 				throw new ApiProblemDetailsException(ModelState);
 
-			Game game = await _gameService.NewGame(model);
+			Game game = await _gameService.Create(model);
 
 			return new CreateGameResponse
 			{
