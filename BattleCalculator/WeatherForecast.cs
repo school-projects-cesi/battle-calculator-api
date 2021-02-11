@@ -1,6 +1,6 @@
 using System;
 
-namespace BattleCalculator.Api
+namespace BattleCalculator
 {
     public class WeatherForecast
     {

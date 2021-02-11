@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
 
-namespace BattleCalculator.Api.Controllers
+namespace BattleCalculator.Controllers
 {
 	[ApiController]
 	[Route("api/[controller]")]

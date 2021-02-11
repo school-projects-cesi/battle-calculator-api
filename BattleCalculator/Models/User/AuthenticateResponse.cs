@@ -1,4 +1,4 @@
-﻿namespace BattleCalculator.Api.Models.User
+﻿namespace BattleCalculator.Models.User
 {
     public class AuthenticateResponse
     {

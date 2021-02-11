@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
-namespace BattleCalculator.Api.Models.User
+namespace BattleCalculator.Models.User
 {
 	public class AuthenticateRequest
 	{

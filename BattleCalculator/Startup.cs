@@ -1,6 +1,6 @@
 ﻿using AutoWrapper;
-using BattleCalculator.Api.Services;
-using BattleCalculator.Api.Services.Abstraction;
+using BattleCalculator.Services;
+using BattleCalculator.Services.Abstraction;
 using BattleCalculator.Data.Abstract;
 using BattleCalculator.Data.Contexts;
 using BattleCalculator.Data.Repositories;
@@ -20,7 +20,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BattleCalculator.Api
+namespace BattleCalculator
 {
 	public class Startup
 	{
