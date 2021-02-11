@@ -12,7 +12,7 @@ namespace BattleCalculator.Api.Models.Game
 
 		public int Level { get; set; }
 
-		public double Chrono { get; set; }
+		public long Chrono { get; set; }
 
 	}
 }
