@@ -1,4 +1,4 @@
-﻿using BattleCalculator.Api.Common.Extensions;
+﻿using BattleCalculator.Common.Extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BattleCalculator.Api
+namespace BattleCalculator
 {
     public class Program
     {

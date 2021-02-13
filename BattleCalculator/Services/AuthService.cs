@@ -1,5 +1,5 @@
-﻿using BattleCalculator.Api.Models.User;
-using BattleCalculator.Api.Services.Abstraction;
+﻿using BattleCalculator.Models.User;
+using BattleCalculator.Services.Abstraction;
 using Microsoft.Extensions.Options;
 using System;
 using System.Security.Claims;
@@ -10,7 +10,7 @@ using System.IdentityModel.Tokens.Jwt;
 using BattleCalculator.Model.Entities;
 using System.Threading.Tasks;
 
-namespace BattleCalculator.Api.Services
+namespace BattleCalculator.Services
 {
 	public class AuthService : IAuthService
 	{

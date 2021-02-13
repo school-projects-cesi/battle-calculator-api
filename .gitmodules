@@ -1,0 +1,6 @@
+[submodule "BattleCalculator/clients/client-app"]
+	path = BattleCalculator/clients/client-app
+	url = https://github.com/school-projects-cesi/battle-calculator-client-web.git
+[submodule "BattleCalculator/clients/client-presentation"]
+	path = BattleCalculator/clients/client-presentation
+	url = https://github.com/school-projects-cesi/battle-calculator-presentation.git

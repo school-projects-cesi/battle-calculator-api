@@ -1,15 +1,15 @@
 ﻿
 using System;
 using System.Threading.Tasks;
-using BattleCalculator.Api.Models.User;
-using BattleCalculator.Api.Services.Abstraction;
+using BattleCalculator.Models.User;
+using BattleCalculator.Services.Abstraction;
 using BattleCalculator.Data.Contexts;
 using BattleCalculator.Model.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace BattleCalculator.Api.Common.Extensions
+namespace BattleCalculator.Common.Extensions
 {
 	public static class WebHostExtensions
 	{

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BattleCalculator.Api.Models.User
+namespace BattleCalculator.Models.User
 {
 	public class RegisterRequest
 	{

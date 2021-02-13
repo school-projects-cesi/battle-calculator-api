@@ -1,7 +1,7 @@
-﻿using BattleCalculator.Api.Models.User;
+﻿using BattleCalculator.Models.User;
 using BattleCalculator.Model.Entities;
 
-namespace BattleCalculator.Api.Services.Abstraction
+namespace BattleCalculator.Services.Abstraction
 {
     public interface IAuthService
     {

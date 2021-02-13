@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoWrapper.Wrappers;
-using BattleCalculator.Api.Models.User;
-using BattleCalculator.Api.Services.Abstraction;
+using BattleCalculator.Models.User;
+using BattleCalculator.Services.Abstraction;
 using BattleCalculator.Data.Abstract;
 using BattleCalculator.Model.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BattleCalculator.Api.Controllers
+namespace BattleCalculator.Controllers
 {
 	public class AuthController : BaseApiController
 	{
