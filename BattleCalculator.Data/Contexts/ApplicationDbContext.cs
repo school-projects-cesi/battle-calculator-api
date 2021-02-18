@@ -49,7 +49,6 @@ namespace BattleCalculator.Data.Contexts
 
             modelBuilder.Entity<Game>()
                 .Property(game => game.Chrono)
-                .HasMaxLength(20)
                 .IsRequired();
 
             modelBuilder.Entity<Game>()

@@ -20,7 +20,7 @@ namespace BattleCalculator.Api.Services
 			Game game = new Game
 			{
 				Level = model.Level,
-				Chrono = 30,
+				Chrono = 60,
 				TotalScore = 0,
 				CreatedAt = DateTime.Now,
 				Ended = false

@@ -33,9 +33,9 @@ namespace BattleCalculator.Api.Controllers
 
 			return new CreateGameResponse
 			{
-				Id=game.Id,
-				Level=game.Level,
-				Chrono=game.Chrono
+				Id = game.Id,
+				Level = game.Level,
+				Chrono = game.Chrono
 			};
 		}
 
