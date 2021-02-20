@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BattleCalculator.Api.Models.Game;
+﻿using System.Threading.Tasks;
 using BattleCalculator.Model.Entities;
+using BattleCalculator.Models.Game;
 
-namespace BattleCalculator.Api.Services.Abstraction
+namespace BattleCalculator.Services.Abstraction
 {
 	public interface IGameService
 	{
-		Task<Game> Create(CreateGameRequest model);
+		Task<Game> CreateAsync(CreateGameRequest model);
 	}
 }

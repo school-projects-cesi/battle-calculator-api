@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
-namespace BattleCalculator.Api.Models.Game
+namespace BattleCalculator.Models.Game
 {
 	public class CreateGameRequest
 	{

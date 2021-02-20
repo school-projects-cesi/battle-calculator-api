@@ -1,25 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using AutoMapper;
 using AutoWrapper.Wrappers;
-using BattleCalculator.Api.Models.Game;
-using BattleCalculator.Api.Models.User;
-using BattleCalculator.Api.Services.Abstraction;
-using BattleCalculator.Data.Abstract;
 using BattleCalculator.Model.Entities;
-using Microsoft.AspNetCore.Http;
+using BattleCalculator.Models.Game;
+using BattleCalculator.Services.Abstraction;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BattleCalculator.Api.Controllers
+namespace BattleCalculator.Controllers
 {
 	public class GamesController : BaseApiController
 	{
 		private readonly IGameService _gameService;
+		private readonly IMapper _mapper;
 
-		public GamesController(IGameService gameService)
+		public GamesController(IGameService gameService, IMapper mapper)
 		{
 			_gameService = gameService;
+			_mapper = mapper;
 		}
 
 		[HttpPost]
@@ -29,14 +26,8 @@ namespace BattleCalculator.Api.Controllers
 			if (!ModelState.IsValid)
 				throw new ApiProblemDetailsException(ModelState);
 
-			Game game = await _gameService.Create(model);
-
-			return new CreateGameResponse
-			{
-				Id = game.Id,
-				Level = game.Level,
-				Chrono = game.Chrono
-			};
+			Game game = await _gameService.CreateAsync(model);
+			return _mapper.Map<CreateGameResponse>(game);
 		}
 
 	}

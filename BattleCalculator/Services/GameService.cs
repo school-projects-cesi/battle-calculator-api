@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using BattleCalculator.Api.Models.Game;
-using BattleCalculator.Api.Services.Abstraction;
+using BattleCalculator.Models.Game;
+using BattleCalculator.Services.Abstraction;
 using BattleCalculator.Data.Abstract;
 using BattleCalculator.Model.Entities;
 
-namespace BattleCalculator.Api.Services
+namespace BattleCalculator.Services
 {
 	public class GameService : IGameService
 	{
@@ -15,7 +15,7 @@ namespace BattleCalculator.Api.Services
 		{
 			_gameRepository = gameRepository;
 		}
-		public async Task<Game> Create(CreateGameRequest model)
+		public async Task<Game> CreateAsync(CreateGameRequest model)
 		{
 			Game game = new Game
 			{
@@ -33,5 +33,4 @@ namespace BattleCalculator.Api.Services
 			return game;
 		}
 	}
-	
 }
