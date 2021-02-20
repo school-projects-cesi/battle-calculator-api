@@ -5,7 +5,10 @@ namespace BattleCalculator.Data.Contexts
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        {
+            Database.EnsureCreated();
+        }
 
         public DbSet<User> Users { get; set; }
 

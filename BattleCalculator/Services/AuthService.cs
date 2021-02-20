@@ -7,8 +7,7 @@ using System.Text;
 using BC = BCrypt.Net.BCrypt;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using BattleCalculator.Model.Entities;
-using System.Threading.Tasks;
+using BattleCalculator.Settings;
 
 namespace BattleCalculator.Services
 {
@@ -22,7 +21,7 @@ namespace BattleCalculator.Services
 		}
 
 
-		public AuthenticateResponse Authenticate(int id)
+		public AuthenticateResponse Authenticate(Guid id)
 		{
 			DateTime expirationTime = DateTime.UtcNow.AddMinutes(_jwtSettings.Lifespan);
 
