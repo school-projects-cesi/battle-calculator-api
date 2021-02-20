@@ -7,8 +7,7 @@ using System.Text;
 using BC = BCrypt.Net.BCrypt;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using BattleCalculator.Model.Entities;
-using System.Threading.Tasks;
+using BattleCalculator.Settings;
 
 namespace BattleCalculator.Services
 {

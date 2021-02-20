@@ -342,3 +342,4 @@ healthchecksdb
 
 # custom
 *Backup.csproj
+*/clients/dist/presentation/build/**

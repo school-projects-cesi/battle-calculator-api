@@ -1,4 +1,4 @@
-﻿namespace BattleCalculator
+﻿namespace BattleCalculator.Settings
 {
     public class JwtSettings
     {
