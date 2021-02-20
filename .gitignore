@@ -342,4 +342,5 @@ healthchecksdb
 
 # custom
 *Backup.csproj
+BattleCalculator/clients/dist/*
 */Properties/ServiceDependencies/*
