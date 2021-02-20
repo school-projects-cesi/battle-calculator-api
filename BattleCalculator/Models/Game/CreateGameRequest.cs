@@ -6,7 +6,7 @@ namespace BattleCalculator.Models.Game
 {
 	public class CreateGameRequest
 	{
-		[Required]
+		[Required, Range(1, 3)]
 		public int Level { get; set; }
 	}
 }

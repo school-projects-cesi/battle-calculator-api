@@ -8,16 +8,21 @@ using BC = BCrypt.Net.BCrypt;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using BattleCalculator.Settings;
+using Microsoft.AspNetCore.Http;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace BattleCalculator.Services
 {
 	public class AuthService : IAuthService
 	{
 		private readonly JwtSettings _jwtSettings;
+		private readonly IHttpContextAccessor _httpContext;
 
-		public AuthService(IOptions<JwtSettings> jwtSettings)
+		public AuthService(IOptions<JwtSettings> jwtSettings, IHttpContextAccessor httpContext)
 		{
 			_jwtSettings = jwtSettings.Value;
+			_httpContext = httpContext;
 		}
 
 
@@ -29,7 +34,7 @@ namespace BattleCalculator.Services
 			{
 				Subject = new ClaimsIdentity(new[]
 				{
-					new Claim(ClaimTypes.Name, id.ToString())
+					new Claim(ClaimTypes.NameIdentifier, id.ToString())
 				}),
 				Expires = expirationTime,
 				// new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256Signature)
@@ -48,6 +53,9 @@ namespace BattleCalculator.Services
 				Id = id
 			};
 		}
+
+		public string GetUserId()
+			=> _httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);//.FindFirst(ClaimTypes.NameIdentifier).Value;
 
 		public string HashPassword(string password)
 			=> BC.HashPassword(password);

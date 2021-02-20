@@ -72,6 +72,9 @@ namespace BattleCalculator
 					};
 				});
 
+			// mapper
+			services.AddAutoMapper(typeof(Startup));
+
 			// services and repositories
 			services.AddScoped<IUserRepository, UserRepository>();
 			services.AddTransient<IGameRepository, GameRepository>();
@@ -82,12 +85,13 @@ namespace BattleCalculator
 			// controllers
 			services.AddControllers()
 				.AddNewtonsoftJson();
+			services.AddHttpContextAccessor();
 		}
 
 		/// <summary>
 		/// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		/// </summary>
-		public void Configure(IApplicationBuilder app, ApplicationDbContext dbContext)
+		public void Configure(IApplicationBuilder app)
 		{
 			app.UseApiResponseAndExceptionWrapper(new AutoWrapperOptions
 			{
@@ -98,7 +102,7 @@ namespace BattleCalculator
 
 			if (Env.IsDevelopment())
 			{
-				app.UseDeveloperExceptionPage();
+				//app.UseDeveloperExceptionPage();
 			}
 
 			// fichier statics

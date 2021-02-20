@@ -4,10 +4,12 @@ using AutoWrapper.Wrappers;
 using BattleCalculator.Model.Entities;
 using BattleCalculator.Models.Game;
 using BattleCalculator.Services.Abstraction;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BattleCalculator.Controllers
 {
+	[Authorize]
 	public class GamesController : BaseApiController
 	{
 		private readonly IGameService _gameService;
