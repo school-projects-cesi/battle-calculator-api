@@ -26,14 +26,18 @@ namespace BattleCalculator.Common.Extensions
 
 				// seeds				
 				#region user
-#if DEBUG
-				// vérifie si il y a déjà des utilisateur
-				if (!await applicationDbContext.Users.AnyAsync())
+				try
 				{
-					await SeedAdminUserAsync(authService, applicationDbContext);
-					await SeedUserAsync(authService, applicationDbContext);
-				}
+#if DEBUG
+					// vérifie si il y a déjà des utilisateur
+					if (await applicationDbContext.Users.CountAsync() == 0)
+					{
+						await SeedAdminUserAsync(authService, applicationDbContext);
+						await SeedUserAsync(authService, applicationDbContext);
+					}
 #endif
+				}
+				catch { }
 				#endregion
 
 				// enregistrement en base de données

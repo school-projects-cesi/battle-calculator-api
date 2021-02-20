@@ -43,13 +43,7 @@ namespace BattleCalculator
 		public void ConfigureServices(IServiceCollection services)
 		{
 			// database
-			services.AddDbContext<ApplicationDbContext>(options =>
-			{
-				if (Env.IsDevelopment())
-					options.UseMySQL(Configuration.GetConnectionString("DefaultConnection"));
-				else
-					options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-			});
+			services.AddDbContext<ApplicationDbContext>(options => options.UseCosmos(Configuration.GetConnectionString("DefaultConnection"), "database"));
 
 			// In production, the React files will be served from this directory
 			if (Env.IsProduction())
@@ -107,7 +101,7 @@ namespace BattleCalculator
 
 			if (Env.IsDevelopment())
 			{
-				// app.UseDeveloperExceptionPage();
+				app.UseDeveloperExceptionPage();
 			}
 
 			// fichier statics

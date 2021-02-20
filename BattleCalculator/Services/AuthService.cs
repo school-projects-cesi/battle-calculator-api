@@ -21,7 +21,7 @@ namespace BattleCalculator.Services
 		}
 
 
-		public AuthenticateResponse Authenticate(int id)
+		public AuthenticateResponse Authenticate(Guid id)
 		{
 			DateTime expirationTime = DateTime.UtcNow.AddMinutes(_jwtSettings.Lifespan);
 

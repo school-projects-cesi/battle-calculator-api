@@ -34,7 +34,7 @@ namespace BattleCalculator.Data.Repositories
             return await query.ToListAsync();
         }
 
-        public virtual async Task<T> FindAsync(int id)
+        public virtual async Task<T> FindAsync(Guid id)
             => await _context.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
 
         public virtual async Task<T> FindAsync(Expression<Func<T, bool>> predicate)

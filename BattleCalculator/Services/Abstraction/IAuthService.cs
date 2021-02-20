@@ -1,5 +1,6 @@
 ﻿using BattleCalculator.Models.User;
 using BattleCalculator.Model.Entities;
+using System;
 
 namespace BattleCalculator.Services.Abstraction
 {
@@ -7,6 +8,6 @@ namespace BattleCalculator.Services.Abstraction
     {
         string HashPassword(string password);
         bool VerifyPassword(string password, string hashedPassword);
-        AuthenticateResponse Authenticate(int id);
+        AuthenticateResponse Authenticate(Guid id);
     }
 }
