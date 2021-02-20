@@ -1,8 +1,10 @@
-﻿namespace BattleCalculator.Model.Entities
+﻿using System;
+
+namespace BattleCalculator.Model.Entities
 {
     public class User : IEntityBase
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
         public string PasswordHashed { get; set; }

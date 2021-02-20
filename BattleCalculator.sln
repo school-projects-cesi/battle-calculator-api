@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleCalculator.Api", "BattleCalculator.Api\BattleCalculator.Api.csproj", "{5AED7C85-8848-4F78-9808-EBAB80EC6D52}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleCalculator", "BattleCalculator\BattleCalculator.csproj", "{5AED7C85-8848-4F78-9808-EBAB80EC6D52}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleCalculator.Data", "BattleCalculator.Data\BattleCalculator.Data.csproj", "{85FD463D-E92C-4F5D-8173-7073ED353184}"
 EndProject
