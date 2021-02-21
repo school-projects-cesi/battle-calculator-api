@@ -9,6 +9,7 @@ using BattleCalculator.Data.Abstract;
 using BattleCalculator.Model.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using BattleCalculator.Controllers.Abstract;
 
 namespace BattleCalculator.Controllers
 {
