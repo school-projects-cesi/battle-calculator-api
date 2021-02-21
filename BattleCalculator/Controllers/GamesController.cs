@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
 using AutoWrapper.Wrappers;
+using BattleCalculator.Controllers.Abstract;
 using BattleCalculator.Model.Entities;
 using BattleCalculator.Models.Game;
 using BattleCalculator.Services.Abstraction;
@@ -31,6 +32,5 @@ namespace BattleCalculator.Controllers
 			Game game = await _gameService.CreateAsync(model);
 			return _mapper.Map<CreateGameResponse>(game);
 		}
-
 	}
 }

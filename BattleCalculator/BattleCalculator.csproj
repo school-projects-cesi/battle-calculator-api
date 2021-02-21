@@ -17,6 +17,7 @@
 		<PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.3" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.3" />
+		<PackageReference Include="Microsoft.Azure.Cosmos" Version="3.16.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Cosmos" Version="5.0.3" />
 		<PackageReference Include="VueCliMiddleware" Version="5.0.0" />
 	</ItemGroup>
