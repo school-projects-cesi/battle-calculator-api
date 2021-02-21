@@ -10,6 +10,10 @@ namespace BattleCalculator.Mappings
 		{
 			CreateMap<Level, GetLevelListResponse>();
 			CreateMap<LevelOperator, GetLevelOperatorListResponse>();
+
+			CreateMap<Level, GetLevelResponse>();
+			CreateMap<LevelOperator, GetLevelOperatorResponse>();
+			CreateMap<LevelValue, GetLevelValueResponse>();
 		}
 	}
 }

@@ -2,9 +2,9 @@
 {
 	public class LevelValue
 	{
-		public uint Min { get; set; }
-		public uint Max { get; set; }
-		public byte Step { get; set; }
+		public uint Min { get; }
+		public uint Max { get; }
+		public byte Step { get; }
 
 		public LevelValue(uint max, uint min = 1, byte step = 1)
 		{
