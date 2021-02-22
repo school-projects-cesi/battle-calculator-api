@@ -1,5 +1,4 @@
 ﻿using BattleCalculator.Model.Entities;
-using System.Threading.Tasks;
 
 namespace BattleCalculator.Data.Abstract
 {

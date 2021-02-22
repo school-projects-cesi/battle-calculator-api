@@ -12,7 +12,7 @@ namespace BattleCalculator.Data.Repositories
 {
     public class EntityBaseRepository<T> : IEntityBaseRepository<T> where T : class, IEntityBase, new()
     {
-        private ApplicationDbContext _context;
+        protected ApplicationDbContext _context;
 
         public EntityBaseRepository(ApplicationDbContext context)
         {
@@ -34,8 +34,16 @@ namespace BattleCalculator.Data.Repositories
             return await query.ToListAsync();
         }
 
-        public virtual async Task<T> FindAsync(Guid id)
-            => await _context.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
+        public virtual async Task<T> FindAsync(int id)
+            => await _context.Set<T>().FindAsync(id);
+        public virtual async Task<T> FindAsync(int id, params Expression<Func<T, object>>[] includeProperties)
+        {
+            IQueryable<T> query = _context.Set<T>();
+            foreach (Expression<Func<T, object>> includeProperty in includeProperties)
+                query = query.Include(includeProperty);
+
+            return await query.FirstOrDefaultAsync(x => x.Id == id);
+        }
 
         public virtual async Task<T> FindAsync(Expression<Func<T, bool>> predicate)
             => await _context.Set<T>().FirstOrDefaultAsync(predicate);

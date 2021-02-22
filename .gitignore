@@ -344,3 +344,4 @@ healthchecksdb
 *Backup.csproj
 BattleCalculator/clients/dist/*
 */Properties/ServiceDependencies/*
+**/data/**/*.db

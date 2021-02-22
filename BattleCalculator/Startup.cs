@@ -18,6 +18,8 @@ using BattleCalculator.Settings;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using VueCliMiddleware;
+using Microsoft.Data.Sqlite;
+using System;
 
 namespace BattleCalculator
 {
@@ -38,7 +40,18 @@ namespace BattleCalculator
 		public void ConfigureServices(IServiceCollection services)
 		{
 			// database
-			services.AddDbContext<ApplicationDbContext>(options => options.UseCosmos(Configuration.GetConnectionString("DefaultConnection"), "database"));
+			switch (Configuration["DatabaseProvider"])
+			{
+				case "Sqlite":
+					services.AddDbContext<ApplicationDbContext, SqliteDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
+					break;
+
+				case "MySql":
+					services.AddDbContext<ApplicationDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("MySqlConnection")));
+					break;
+				default:
+					throw new Exception($"DatabaseProvider not recognized: {Configuration["DatabaseProvider"]}");
+			}
 
 			// In production, the React files will be served from this directory
 			if (Env.IsProduction())
@@ -102,7 +115,7 @@ namespace BattleCalculator
 
 			if (Env.IsDevelopment())
 			{
-				//app.UseDeveloperExceptionPage();
+				app.UseDeveloperExceptionPage();
 			}
 
 			// fichier statics
