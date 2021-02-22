@@ -1,4 +1,4 @@
-﻿namespace BattleCalculator.Common.Data.Levels
+﻿namespace BattleCalculator.Model.Enums
 {
 	public enum LevelOperatorType
 	{
