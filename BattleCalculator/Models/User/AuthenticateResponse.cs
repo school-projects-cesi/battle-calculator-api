@@ -6,6 +6,6 @@ namespace BattleCalculator.Models.User
     {
         public string Token { get; set; }
         public long TokenExpirationTime { get; set; }
-        public Guid Id { get; set; }
+        public int Id { get; set; }
     }
 }

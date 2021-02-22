@@ -24,55 +24,11 @@ namespace BattleCalculator.Common.Extensions
 				// services
 				IAuthService authService = services.GetRequiredService<IAuthService>();
 
-				// seeds				
-				#region user
-				try
-				{
-#if DEBUG
-					// vérifie si il y a déjà des utilisateur
-					if (await applicationDbContext.Users.CountAsync() == 0)
-					{
-						await SeedAdminUserAsync(authService, applicationDbContext);
-						await SeedUserAsync(authService, applicationDbContext);
-					}
-#endif
-				}
-				catch { }
-				#endregion
-
-				// enregistrement en base de données
-				await applicationDbContext.SaveChangesAsync();
+				// migrations
+				await applicationDbContext.Database.MigrateAsync();
 			}
 
 			return host;
 		}
-
-
-		#region privates
-		private static async Task SeedAdminUserAsync(IAuthService service, ApplicationDbContext context)
-		{
-			//Seed Default User
-			string password = "password";
-			User user = new User
-			{
-				Username = "Admin",
-				Email = "admin@gmail.com",
-				PasswordHashed = service.HashPassword(password)
-			};
-			await context.Users.AddAsync(user);
-		}
-		private static async Task SeedUserAsync(IAuthService service, ApplicationDbContext context)
-		{
-			//Seed Default User
-			string password = "123Pa$$word!";
-			User user = new User
-			{
-				Username = "Jean-Claude",
-				Email = "fan@battle-calculator.com",
-				PasswordHashed = service.HashPassword(password)
-			};
-			await context.Users.AddAsync(user);
-		}
-		#endregion
 	}
 }

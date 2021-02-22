@@ -3,6 +3,7 @@ using BattleCalculator.Model.Entities;
 using System;
 using System.Security.Claims;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BattleCalculator.Services.Abstraction
 {
@@ -10,7 +11,8 @@ namespace BattleCalculator.Services.Abstraction
 	{
 		string HashPassword(string password);
 		bool VerifyPassword(string password, string hashedPassword);
-		AuthenticateResponse Authenticate(Guid id);
-		string GetUserId();
+		AuthenticateResponse Authenticate(int id);
+		int GetUserId();
+		Task<User> GetUserAsync();
 	}
 }

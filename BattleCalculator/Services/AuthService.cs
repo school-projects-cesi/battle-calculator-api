@@ -9,8 +9,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using BattleCalculator.Settings;
 using Microsoft.AspNetCore.Http;
-using System.Linq;
-using System.Collections.Generic;
+using BattleCalculator.Model.Entities;
+using BattleCalculator.Data.Abstract;
+using System.Threading.Tasks;
 
 namespace BattleCalculator.Services
 {
@@ -18,15 +19,16 @@ namespace BattleCalculator.Services
 	{
 		private readonly JwtSettings _jwtSettings;
 		private readonly IHttpContextAccessor _httpContext;
+		private readonly IUserRepository _userRepository;
 
-		public AuthService(IOptions<JwtSettings> jwtSettings, IHttpContextAccessor httpContext)
+		public AuthService(IOptions<JwtSettings> jwtSettings, IHttpContextAccessor httpContext, IUserRepository userRepository)
 		{
 			_jwtSettings = jwtSettings.Value;
 			_httpContext = httpContext;
+			_userRepository = userRepository;
 		}
 
-
-		public AuthenticateResponse Authenticate(Guid id)
+		public AuthenticateResponse Authenticate(int id)
 		{
 			DateTime expirationTime = DateTime.UtcNow.AddMinutes(_jwtSettings.Lifespan);
 
@@ -54,8 +56,11 @@ namespace BattleCalculator.Services
 			};
 		}
 
-		public string GetUserId()
-			=> _httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);//.FindFirst(ClaimTypes.NameIdentifier).Value;
+		public int GetUserId()
+			=> Convert.ToInt32(_httpContext.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+		public async Task<User> GetUserAsync()
+			=> await _userRepository.FindAsync(GetUserId());
 
 		public string HashPassword(string password)
 			=> BC.HashPassword(password);

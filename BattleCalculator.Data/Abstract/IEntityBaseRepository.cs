@@ -11,7 +11,8 @@ namespace BattleCalculator.Data.Abstract
         Task<IEnumerable<T>> GetAllAsync();
         Task<int> CountAsync();
         Task<IEnumerable<T>> AllIncludingAsync(params Expression<Func<T, object>>[] includeProperties);
-        Task<T> FindAsync(Guid id);
+        Task<T> FindAsync(int id);
+        Task<T> FindAsync(int id, params Expression<Func<T, object>>[] includeProperties);
         Task<T> FindAsync(Expression<Func<T, bool>> predicate);
         Task<T> FindAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties);
         IEnumerable<T> FindBy(Expression<Func<T, bool>> predicate);
