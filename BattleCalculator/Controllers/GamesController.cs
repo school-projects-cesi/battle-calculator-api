@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using AutoWrapper.Wrappers;
 using BattleCalculator.Controllers.Abstract;
@@ -32,5 +33,21 @@ namespace BattleCalculator.Controllers
 			Game game = await _gameService.CreateAsync(model);
 			return _mapper.Map<CreateGameResponse>(game);
 		}
+<<<<<<< HEAD
+=======
+
+		[HttpGet("[action]/{level:int}")]
+		public async Task<List<GetBestUsersResponse>> Best(int level)
+		{
+
+			List<GetBestUsersResponse> response = await _gameService.GetBestUsersByLevelAsync(level);
+
+
+			return response;
+
+
+		}
+
+>>>>>>> 35de407 (Récup 10 meilleur joueur par level (sans tri exequo))
 	}
 }
