@@ -6,6 +6,7 @@ using BattleCalculator.Common;
 using BattleCalculator.Common.Data.Levels;
 using BattleCalculator.Common.Extensions;
 using BattleCalculator.Controllers.Abstract;
+using BattleCalculator.Model.Enums;
 using BattleCalculator.Models.Level;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

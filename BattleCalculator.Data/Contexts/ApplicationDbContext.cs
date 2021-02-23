@@ -46,7 +46,7 @@ namespace BattleCalculator.Data.Contexts
         {
             // validations
             modelBuilder.Entity<Game>()
-                .Property(game => game.User)
+                .Property(game => game.UserId)
                 .IsRequired();
 
             modelBuilder.Entity<Game>()

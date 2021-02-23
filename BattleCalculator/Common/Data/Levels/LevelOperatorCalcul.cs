@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using BattleCalculator.Common;
+using BattleCalculator.Model.Enums;
 
 namespace BattleCalculator.Common.Data.Levels
 {
