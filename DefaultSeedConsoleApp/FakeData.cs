@@ -4,6 +4,7 @@ using Bogus;
 using Bogus.Extensions;
 using System;
 using System.Collections.Generic;
+using BC = BCrypt.Net.BCrypt;
 
 namespace DefaultSeedConsoleApp
 {
@@ -14,6 +15,9 @@ namespace DefaultSeedConsoleApp
 
         public static void Init(int count)
         {
+            string password = "123Pa$$word!";
+            string passwordHashed = BC.HashPassword(password);
+
             var gameFaker = new Faker<Game>("fr")
                .RuleFor(g => g.Level, f => (int)f.PickRandom<LevelType>())
                .RuleFor(g => g.Chrono, _ => 60)
@@ -25,7 +29,7 @@ namespace DefaultSeedConsoleApp
             var userFaker = new Faker<User>("fr")
                .RuleFor(u => u.Username, f => f.Internet.UserName())
                .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.Username))
-               .RuleFor(u => u.PasswordHashed, f => f.Random.Hash())
+               .RuleFor(u => u.PasswordHashed, _ => passwordHashed)
                .RuleFor(b => b.Games, (f, g) => gameFaker.GenerateBetween(0, 750));
 
             // populate
