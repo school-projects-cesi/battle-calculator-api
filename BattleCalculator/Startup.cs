@@ -18,7 +18,6 @@ using BattleCalculator.Settings;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using VueCliMiddleware;
-using Microsoft.Data.Sqlite;
 using System;
 
 namespace BattleCalculator
@@ -115,7 +114,7 @@ namespace BattleCalculator
 
 			if (Env.IsDevelopment())
 			{
-				app.UseDeveloperExceptionPage();
+				//app.UseDeveloperExceptionPage();
 			}
 
 			// fichier statics

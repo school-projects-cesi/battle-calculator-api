@@ -30,7 +30,7 @@ namespace BattleCalculator.Controllers
 		[HttpGet("{type:int}")]
 		public GetLevelResponse Get(int type)
 		{
-			if (type < 1 || !EnumExtensions.TryParse(type, out LevelType levelType))
+			if (Level.CheckType(type, out LevelType levelType))
 				throw new ApiProblemDetailsException($"Level with type {type} not exist.", StatusCodes.Status404NotFound);
 
 			return _mapper.Map<GetLevelResponse>(Constants.LEVELS[levelType]);

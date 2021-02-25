@@ -25,7 +25,11 @@ namespace BattleCalculator.Common.Extensions
 				IAuthService authService = services.GetRequiredService<IAuthService>();
 
 				// migrations
+#if !DEBUG
+				await applicationDbContext.Database.EnsureCreatedAsync();
+#else
 				await applicationDbContext.Database.MigrateAsync();
+#endif
 			}
 
 			return host;
