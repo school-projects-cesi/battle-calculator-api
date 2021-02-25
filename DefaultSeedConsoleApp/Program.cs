@@ -29,6 +29,7 @@ namespace DefaultSeedConsoleApp
                 // options
                 DbContextOptionsBuilder<ApplicationDbContext> optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
                 optionsBuilder.UseMySQL(connectionString);
+                //optionsBuilder.UseSqlite(connectionString);
                 // context
                 using ApplicationDbContext dbContext = new ApplicationDbContext(optionsBuilder.Options);
 

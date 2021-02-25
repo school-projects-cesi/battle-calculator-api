@@ -38,5 +38,13 @@ namespace BattleCalculator.Common.Data.Levels
 			throw new Exception("Aucun chiffre n'a été trouvé");
 		}
 		#endregion
+
+		#region statics
+		public static bool CheckType(int? level, out LevelType levelType)
+		{
+			levelType = default;
+			return level != null && (level < 1 || !EnumExtensions.TryParse(level.Value, out levelType));
+		}
+		#endregion
 	}
 }
