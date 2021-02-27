@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace BattleCalculator.Models.Game
 {
-	public class GetBestUsersResponse
+	public class BestUsersResponse
 	{
 		public int Position { get; set;  }
-		public Guid IdUser { get; set; }
+		public int IdUser { get; set; }
 		public string UserName { get; set; }
 		public int Score { get; set; }
 		public DateTime Date { get; set;  }
