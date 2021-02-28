@@ -9,6 +9,6 @@ namespace BattleCalculator.Services.Abstraction
 	public interface IGameService
 	{
 		Task<Game> CreateAsync(CreateGameRequest model);
-		Task<List<BestUsersResponse>> GetBestUsersByLevelAsync(LevelType level);
+		Task<IEnumerable<(int, Game)>> GetBestUsersByLevelAsync(LevelType level);
 	}
 }

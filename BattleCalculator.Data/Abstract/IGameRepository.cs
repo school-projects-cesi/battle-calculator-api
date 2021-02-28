@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace BattleCalculator.Data.Abstract
 {
     public interface IGameRepository : IEntityBaseRepository<Game> {
-        Task<IEnumerable<Game>> GetBestUsersByLevel(LevelType level);
+        Task<IEnumerable<Game>> GetBestUsersByLevelAsync(LevelType level, int size = 10);
     }
     
 }

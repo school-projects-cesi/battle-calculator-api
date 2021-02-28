@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BattleCalculator.Models.Game
 {
-	public class BestUsersResponse
+	public class BestUserResponse
 	{
 		public int Position { get; set;  }
 		public int IdUser { get; set; }

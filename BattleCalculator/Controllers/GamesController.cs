@@ -1,13 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoWrapper.Wrappers;
+using BattleCalculator.Common.Data.Levels;
 using BattleCalculator.Controllers.Abstract;
 using BattleCalculator.Model.Entities;
 using BattleCalculator.Model.Enums;
 using BattleCalculator.Models.Game;
 using BattleCalculator.Services.Abstraction;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BattleCalculator.Controllers
@@ -37,15 +40,19 @@ namespace BattleCalculator.Controllers
 
 
 		[HttpGet("[action]/{level:int}")]
-		public async Task<List<BestUsersResponse>> Best(LevelType level)
+		public async Task<IEnumerable<BestUserResponse>> Best(int? level)
 		{
-
-			List<BestUsersResponse> response = await _gameService.GetBestUsersByLevelAsync(level);
-
-
-			return response;
-
-
+			//if (Level.CheckType(level, out LevelType levelType))
+			//	throw new ApiProblemDetailsException($"Level with type {level} not exist.", StatusCodes.Status404NotFound);
+			IEnumerable<(int, Game)> result = await _gameService.GetBestUsersByLevelAsync((LevelType)level);
+			return result.Select(g => new BestUserResponse
+			{
+				Position = g.Item1,
+				IdUser = g.Item2.UserId,
+				UserName = g.Item2.User.Username,
+				Score = g.Item2.TotalScore,
+				Date = g.Item2.EndedAt.Value
+			});
 		}
 	}
 }

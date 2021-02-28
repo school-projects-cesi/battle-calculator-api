@@ -10,6 +10,7 @@ using System.Security.Claims;
 using System.Collections.Generic;
 using System.Linq;
 using BattleCalculator.Model.Enums;
+using BattleCalculator.Common.Extensions;
 
 namespace BattleCalculator.Services
 {
@@ -26,10 +27,6 @@ namespace BattleCalculator.Services
 
 		public async Task<Game> CreateAsync(CreateGameRequest model)
 		{
-			//User user = await _authService.GetUserAsync();
-			//if (user == null)
-			//	throw new ApiProblemDetailsException("User not exist", StatusCodes.Status403Forbidden);
-
 			Game game = new Game
 			{
 				User = null,
@@ -46,30 +43,16 @@ namespace BattleCalculator.Services
 			return game;
 		}
 
-		public async Task<List<BestUsersResponse>> GetBestUsersByLevelAsync(LevelType level)
+		public async Task<IEnumerable<(int, Game)>> GetBestUsersByLevelAsync(LevelType level)
 		{
-			int cpt = 1;
+			int lastPosition = 1;
 
-			IEnumerable<Game> games = await _gameRepository.GetBestUsersByLevel(level);
-			List<BestUsersResponse> result = new List<BestUsersResponse>();
-
-			
-			foreach(var game in games)
-			{
-				result.Add(new BestUsersResponse
-				{
-					Position = cpt,
-					IdUser = game.UserId,
-					UserName = game.User.Username,
-					Score = game.TotalScore,
-					Date = (DateTime)game.EndedAt
-				});
-
-				cpt += 1;
-			}
-
-
-			return result;
+			IEnumerable<Game> games = await _gameRepository.GetBestUsersByLevelAsync(level);
+			// TODO: ajouter la gestion des égaltiés
+			return games
+				.OrderByDescending(g => g.TotalScore)
+				.ThenByDescending(g => g.EndedAt)
+				.Select(g => (lastPosition++, g));
 		}
 	}
 }
