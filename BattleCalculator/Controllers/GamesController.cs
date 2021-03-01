@@ -62,6 +62,18 @@ namespace BattleCalculator.Controllers
 			return response;
 		}
 
+		[HttpPatch("{id:int}/[action]")]
+		public async Task<CreateGameResponse> End(int? id)
+		{
+			if (id == null || id < 1)
+				throw new ApiProblemDetailsException($"Game with id {id} not exist.", StatusCodes.Status404NotFound);
+
+			// récupère le game
+			Game game = await _service.EndAsync(id.Value);
+			// rendu
+			return _mapper.Map<CreateGameResponse>(game);
+		}
+
 
 		#region scores
 		[HttpPatch("{idGame:int}/[action]/{id:int}")]
@@ -77,7 +89,7 @@ namespace BattleCalculator.Controllers
 			Score score = await _scoreService.FindByUserAsync(idGame.Value, id.Value);
 
 			// vérifie la date
-			if (!_service.CheckValidGameDate(score.Game))
+			if (!_service.ValidGameDate(score.Game))
 				throw new ApiProblemDetailsException($"Game cant be updated.", StatusCodes.Status403Forbidden);
 
 			// vérifie la date

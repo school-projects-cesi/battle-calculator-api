@@ -28,6 +28,17 @@ namespace BattleCalculator.Services
 			_scoreService = scoreService;
 		}
 
+		public async Task<Game> FindByUserAsync(int id)
+		{
+			int user = _authService.GetUserId();
+
+			Game game = await _repository.FindAsync(id);
+			if (game == null || game.UserId != user)
+				throw new ApiProblemDetailsException("Game not exist", StatusCodes.Status404NotFound);
+
+			return game;
+		}
+
 		public async Task<Game> CreateAsync(Game model)
 		{
 			User user = await _authService.GetUserAsync();
@@ -54,6 +65,32 @@ namespace BattleCalculator.Services
 			return game;
 		}
 
+
+
+		public async Task<Game> EndAsync(int id)
+		{
+			int user = _authService.GetUserId();
+
+			Game game = await _repository.FindAsync(id, g => g.Scores);
+			if (game == null || game.UserId != user)
+				throw new ApiProblemDetailsException("Game not exist", StatusCodes.Status404NotFound);
+
+			// vérifie la date
+			if (!ValidGameDate(game, 60))
+				throw new ApiProblemDetailsException($"Game cant be updated.", StatusCodes.Status403Forbidden);
+
+			// update
+			game.Ended = true;
+			game.EndedAt = DateTime.Now;
+			game.TotalScore = game.Scores.Where(s => s.AnsweredAt != null && s.Result == s.UserResult).Count();
+
+			// database
+			_repository.Update(game);
+			await _repository.CommitAsync();
+
+			return game;
+		}
+
 		public async Task<IEnumerable<(int, Game)>> GetBestUsersByLevelAsync(LevelType level)
 		{
 			int lastPosition = 1;
@@ -66,7 +103,7 @@ namespace BattleCalculator.Services
 				.Select(g => (lastPosition++, g));
 		}
 
-		public bool CheckValidGameDate(Game game)
-			=> game.CreatedAt.AddSeconds(_appSettings.Chrono + 3) > DateTime.Now;
+		public bool ValidGameDate(Game game, int plus = 3)
+			=> game.CreatedAt.AddSeconds(_appSettings.Chrono + plus) > DateTime.Now;
 	}
 }
