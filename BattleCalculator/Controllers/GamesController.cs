@@ -38,13 +38,21 @@ namespace BattleCalculator.Controllers
 			return _mapper.Map<CreateGameResponse>(game);
 		}
 
-		[HttpGet("[action]/{level:int}")]
-		public IEnumerable<BestGameResponse> Best(int? level)
-		{
-			if (Level.CheckType(level, out LevelType levelType))
-				throw new ApiProblemDetailsException($"Level with type {level} not exist.", StatusCodes.Status404NotFound);
 
-			return Enumerable.Empty<BestGameResponse>();
+		[HttpGet("[action]/{level:int}")]
+		public async Task<IEnumerable<BestUserResponse>> Best(int? level)
+		{
+			//if (Level.CheckType(level, out LevelType levelType))
+			//	throw new ApiProblemDetailsException($"Level with type {level} not exist.", StatusCodes.Status404NotFound);
+			IEnumerable<(int, Game)> result = await _gameService.GetBestUsersByLevelAsync((LevelType)level);
+			return result.Select(g => new BestUserResponse
+			{
+				Position = g.Item1,
+				IdUser = g.Item2.UserId,
+				UserName = g.Item2.User.Username,
+				Score = g.Item2.TotalScore,
+				Date = g.Item2.EndedAt.Value
+			});
 		}
 	}
 }

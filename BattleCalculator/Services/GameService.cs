@@ -6,6 +6,11 @@ using BattleCalculator.Data.Abstract;
 using BattleCalculator.Model.Entities;
 using Microsoft.AspNetCore.Http;
 using AutoWrapper.Wrappers;
+using System.Security.Claims;
+using System.Collections.Generic;
+using System.Linq;
+using BattleCalculator.Model.Enums;
+using BattleCalculator.Common.Extensions;
 
 namespace BattleCalculator.Services
 {
@@ -19,8 +24,7 @@ namespace BattleCalculator.Services
 			_authService = authService;
 			_gameRepository = gameRepository;
 		}
-		
-		
+
 		public async Task<Game> CreateAsync(CreateGameRequest model)
 		{
 			User user = await _authService.GetUserAsync();
@@ -41,6 +45,18 @@ namespace BattleCalculator.Services
 			await _gameRepository.CommitAsync();
 
 			return game;
+		}
+
+		public async Task<IEnumerable<(int, Game)>> GetBestUsersByLevelAsync(LevelType level)
+		{
+			int lastPosition = 1;
+
+			IEnumerable<Game> games = await _gameRepository.GetBestUsersByLevelAsync(level);
+			// TODO: ajouter la gestion des égaltiés
+			return games
+				.OrderByDescending(g => g.TotalScore)
+				.ThenByDescending(g => g.EndedAt)
+				.Select(g => (lastPosition++, g));
 		}
 	}
 }
