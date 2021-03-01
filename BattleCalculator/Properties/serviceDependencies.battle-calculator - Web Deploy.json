@@ -1,10 +1,10 @@
 {
   "dependencies": {
-    "cosmosdb1": {
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.DocumentDB/databaseAccounts/battle-calculator-database",
-      "type": "cosmosdb.azure",
-      "connectionId": "DefaultConnection",
-      "secretStore": "AzureAppSettings"
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "SqliteConnection",
+      "suggestion": "true",
+      "ignored": "true"
     }
   }
 }
