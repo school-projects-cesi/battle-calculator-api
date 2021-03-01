@@ -1,5 +1,5 @@
-﻿using BattleCalculator.Data.Abstract;
-using BattleCalculator.Data.Contexts;
+﻿using BattleCalculator.Data.Contexts;
+using BattleCalculator.Data.Repositories.Abstract;
 using BattleCalculator.Model.Entities;
 using System.Threading.Tasks;
 

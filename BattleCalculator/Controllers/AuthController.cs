@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using AutoWrapper.Wrappers;
 using BattleCalculator.Models.User;
 using BattleCalculator.Services.Abstraction;
-using BattleCalculator.Data.Abstract;
 using BattleCalculator.Model.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using BattleCalculator.Controllers.Abstract;
+using BattleCalculator.Data.Repositories.Abstract;
 
 namespace BattleCalculator.Controllers
 {

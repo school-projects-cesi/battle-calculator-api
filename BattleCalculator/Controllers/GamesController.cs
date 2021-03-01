@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -8,6 +9,7 @@ using BattleCalculator.Controllers.Abstract;
 using BattleCalculator.Model.Entities;
 using BattleCalculator.Model.Enums;
 using BattleCalculator.Models.Game;
+using BattleCalculator.Models.Score;
 using BattleCalculator.Services.Abstraction;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -18,33 +20,25 @@ namespace BattleCalculator.Controllers
 	[Authorize]
 	public class GamesController : BaseApiController
 	{
-		private readonly IGameService _gameService;
+		private readonly IGameService _service;
+		private readonly IScoreService _scoreService;
 		private readonly IMapper _mapper;
 
-		public GamesController(IGameService gameService, IMapper mapper)
+		public GamesController(IGameService gameService, IScoreService scoreService, IMapper mapper)
 		{
-			_gameService = gameService;
+			_service = gameService;
+			_scoreService = scoreService;
 			_mapper = mapper;
-		}
-
-		[HttpPost]
-		public async Task<CreateGameResponse> Post([FromBody] CreateGameRequest model)
-		{
-			// vérifie que les données de l'utilisateur sont correct
-			if (!ModelState.IsValid)
-				throw new ApiProblemDetailsException(ModelState);
-
-			Game game = await _gameService.CreateAsync(model);
-			return _mapper.Map<CreateGameResponse>(game);
 		}
 
 
 		[HttpGet("[action]/{level:int}")]
 		public async Task<IEnumerable<BestUserResponse>> Best(int? level)
 		{
-			//if (Level.CheckType(level, out LevelType levelType))
-			//	throw new ApiProblemDetailsException($"Level with type {level} not exist.", StatusCodes.Status404NotFound);
-			IEnumerable<(int, Game)> result = await _gameService.GetBestUsersByLevelAsync((LevelType)level);
+			if (Level.CheckType(level, out LevelType levelType))
+				throw new ApiProblemDetailsException($"Level with type {level} not exist.", StatusCodes.Status404NotFound);
+
+			IEnumerable<(int, Game)> result = await _service.GetBestUsersByLevelAsync((LevelType)level);
 			return result.Select(g => new BestUserResponse
 			{
 				Position = g.Item1,
@@ -54,5 +48,59 @@ namespace BattleCalculator.Controllers
 				Date = g.Item2.EndedAt.Value
 			});
 		}
+
+		[HttpPost]
+		public async Task<CreateGameResponse> Post([FromBody] CreateGameRequest model)
+		{
+			// vérifie que les données de l'utilisateur sont correct
+			if (!ModelState.IsValid)
+				throw new ApiProblemDetailsException(ModelState);
+
+			Game game = await _service.CreateAsync(_mapper.Map<Game>(model));
+			CreateGameResponse response = _mapper.Map<CreateGameResponse>(game);
+			response.Score = _mapper.Map<CreateScoreResponse>(game.Scores.FirstOrDefault());
+			return response;
+		}
+
+
+		#region scores
+		[HttpPatch("{idGame:int}/[action]/{id:int}")]
+		public async Task<PatchScoreResponse> Scores(int? idGame, int? id, CreateScoreRequest model)
+		{
+			if (idGame == null || idGame < 1)
+				throw new ApiProblemDetailsException($"Game with id {idGame} not exist.", StatusCodes.Status404NotFound);
+
+			if (id == null || id < 1)
+				throw new ApiProblemDetailsException($"Score with id {idGame} not exist.", StatusCodes.Status404NotFound);
+
+			// récupère le score
+			Score score = await _scoreService.FindByUserAsync(idGame.Value, id.Value);
+
+			// vérifie la date
+			if (!_service.CheckValidGameDate(score.Game))
+				throw new ApiProblemDetailsException($"Game cant be updated.", StatusCodes.Status403Forbidden);
+
+			// vérifie la date
+			if (score.AnsweredAt != null)
+				throw new ApiProblemDetailsException($"Score cant be updated.", StatusCodes.Status403Forbidden);
+
+			// vérifie que les données de l'utilisateur sont correct
+			if (!ModelState.IsValid)
+				throw new ApiProblemDetailsException(ModelState);
+
+			// mise à jour de l'objet score
+			score.UserResult = model.Result;
+			score.AnsweredAt = DateTime.Now;
+			await _scoreService.UpdateAsync(score);
+			Score newScore = _scoreService.GenerateScore(score.Game.GetLevelType());
+			await _scoreService.CreateAsync(score.Game.Id, newScore);
+			// rendu
+			return new PatchScoreResponse
+			{
+				Updated = _mapper.Map<CreateScoreResponse>(score),
+				Next = _mapper.Map<CreateScoreResponse>(newScore)
+			};
+		}
+		#endregion
 	}
 }

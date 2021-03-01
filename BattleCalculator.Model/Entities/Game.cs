@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BattleCalculator.Model.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace BattleCalculator.Model.Entities
@@ -24,5 +25,11 @@ namespace BattleCalculator.Model.Entities
         {
             Scores = new List<Score>();
         }
+
+
+        #region methods
+        public LevelType GetLevelType()
+            => (LevelType)Level;
+        #endregion
     }
 }

@@ -1,7 +1,7 @@
 ﻿using BattleCalculator.Model.Entities;
 using System.Threading.Tasks;
 
-namespace BattleCalculator.Data.Abstract
+namespace BattleCalculator.Data.Repositories.Abstract
 {
     public interface IUserRepository : IEntityBaseRepository<User>
     {
