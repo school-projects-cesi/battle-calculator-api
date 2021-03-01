@@ -27,9 +27,13 @@ namespace BattleCalculator.Services
 
 		public async Task<Game> CreateAsync(CreateGameRequest model)
 		{
+			User user = await _authService.GetUserAsync();
+			if (user == null)
+				throw new ApiProblemDetailsException("User not exist", StatusCodes.Status403Forbidden);
+
 			Game game = new Game
 			{
-				User = null,
+				User = user,
 				Level = model.Level,
 				Chrono = 60,
 				TotalScore = 0,
