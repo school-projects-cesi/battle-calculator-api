@@ -13,7 +13,7 @@
 ### Commandes
 
 ```sh
-Add-Migration $$NOM_MIGRATION$$ -Project BattleCalculator.Data -Context ApplicationDbContext
+Add-Migration $$NOM_MIGRATION$$ -Project BattleCalculator.Data -Context ApplicationDbContext -OutputDir Migrations\MySql
 ```
 
 ## Mettre à jour la base de données

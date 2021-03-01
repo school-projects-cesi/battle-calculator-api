@@ -51,8 +51,7 @@ namespace DefaultSeedConsoleApp
                 if (options.Verbose)
                     Console.WriteLine("Insertion des données");
                 await dbContext.Users.AddRangeAsync(FakeData.Users);
-                await dbContext.Games.AddRangeAsync(FakeData.Games);
-                await dbContext.SaveChangesAsync();
+                await dbContext.SaveChangesAsync(); 
                 if (options.Verbose)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
