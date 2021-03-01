@@ -10,6 +10,7 @@ namespace BattleCalculator.Data.Contexts
 
         public DbSet<User> Users { get; set; }
         public DbSet<Game> Games { get; set; }
+        public DbSet<Score> Scores { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -66,6 +67,26 @@ namespace BattleCalculator.Data.Contexts
 
             modelBuilder.Entity<Game>()
                 .Property(game => game.Ended)
+                .IsRequired();
+        }
+
+        public void ConfigureModelBuilderForScore(ModelBuilder modelBuilder)
+        {
+            // validations
+            modelBuilder.Entity<Score>()
+                .Property(game => game.GameId)
+                .IsRequired();
+
+            modelBuilder.Entity<Score>()
+                .Property(game => game.Operation)
+                .IsRequired();
+
+            modelBuilder.Entity<Score>()
+                .Property(game => game.Result)
+                .IsRequired();
+
+            modelBuilder.Entity<Score>()
+                .Property(game => game.CreatedAt)
                 .IsRequired();
         }
         #endregion

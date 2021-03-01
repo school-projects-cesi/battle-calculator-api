@@ -1,7 +1,6 @@
 ﻿using AutoWrapper;
 using BattleCalculator.Services;
 using BattleCalculator.Services.Abstraction;
-using BattleCalculator.Data.Abstract;
 using BattleCalculator.Data.Contexts;
 using BattleCalculator.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -19,6 +18,7 @@ using Microsoft.Extensions.FileProviders;
 using System.IO;
 using VueCliMiddleware;
 using System;
+using BattleCalculator.Data.Repositories.Abstract;
 
 namespace BattleCalculator
 {
@@ -64,6 +64,7 @@ namespace BattleCalculator
 			}
 
 			// settings
+			services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 			IConfigurationSection jwtSettingsSection = Configuration.GetSection("JwtSettings");
 			services.Configure<JwtSettings>(jwtSettingsSection);
 
@@ -89,10 +90,12 @@ namespace BattleCalculator
 
 			// services and repositories
 			services.AddScoped<IUserRepository, UserRepository>();
-			services.AddTransient<IGameRepository, GameRepository>();
+			services.AddScoped<IGameRepository, GameRepository>();
+			services.AddScoped<IScoreRepository, ScoreRepository>();
 
 			services.AddTransient<IAuthService, AuthService>();
 			services.AddTransient<IGameService, GameService>();
+			services.AddTransient<IScoreService, ScoreService>();
 
 			// controllers
 			services.AddControllers()

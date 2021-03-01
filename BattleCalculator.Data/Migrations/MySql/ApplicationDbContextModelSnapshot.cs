@@ -41,7 +41,7 @@ namespace BattleCalculator.Data.Migrations.MySql
                     b.Property<int>("TotalScore")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -49,6 +49,37 @@ namespace BattleCalculator.Data.Migrations.MySql
                     b.HasIndex("UserId");
 
                     b.ToTable("Games");
+                });
+
+            modelBuilder.Entity("BattleCalculator.Model.Entities.Score", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("AnsweredAt")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime");
+
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Operation")
+                        .HasColumnType("text");
+
+                    b.Property<float>("Result")
+                        .HasColumnType("float");
+
+                    b.Property<float?>("UserResult")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameId");
+
+                    b.ToTable("Scores");
                 });
 
             modelBuilder.Entity("BattleCalculator.Model.Entities.User", b =>
@@ -84,8 +115,19 @@ namespace BattleCalculator.Data.Migrations.MySql
             modelBuilder.Entity("BattleCalculator.Model.Entities.Game", b =>
                 {
                     b.HasOne("BattleCalculator.Model.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .WithMany("Games")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BattleCalculator.Model.Entities.Score", b =>
+                {
+                    b.HasOne("BattleCalculator.Model.Entities.Game", "Game")
+                        .WithMany("Scores")
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

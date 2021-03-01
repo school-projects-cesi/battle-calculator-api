@@ -28,7 +28,7 @@ namespace BattleCalculator.Data.Migrations.Sqlite
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    UserId = table.Column<int>(nullable: true),
+                    UserId = table.Column<int>(nullable: false),
                     Level = table.Column<int>(nullable: false),
                     Chrono = table.Column<long>(nullable: false),
                     TotalScore = table.Column<int>(nullable: false),
@@ -44,13 +44,42 @@ namespace BattleCalculator.Data.Migrations.Sqlite
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Scores",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    GameId = table.Column<int>(nullable: false),
+                    Operation = table.Column<string>(nullable: true),
+                    Result = table.Column<float>(nullable: false),
+                    UserResult = table.Column<float>(nullable: true),
+                    AnsweredAt = table.Column<DateTime>(nullable: true),
+                    CreatedAt = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Scores", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Scores_Games_GameId",
+                        column: x => x.GameId,
+                        principalTable: "Games",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Games_UserId",
                 table: "Games",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Scores_GameId",
+                table: "Scores",
+                column: "GameId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_Email",
@@ -67,6 +96,9 @@ namespace BattleCalculator.Data.Migrations.Sqlite
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Scores");
+
             migrationBuilder.DropTable(
                 name: "Games");
 

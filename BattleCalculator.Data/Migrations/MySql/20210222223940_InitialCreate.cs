@@ -29,7 +29,7 @@ namespace BattleCalculator.Data.Migrations.MySql
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<int>(nullable: true),
+                    UserId = table.Column<int>(nullable: false),
                     Level = table.Column<int>(nullable: false),
                     Chrono = table.Column<long>(nullable: false),
                     TotalScore = table.Column<int>(nullable: false),

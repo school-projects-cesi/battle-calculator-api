@@ -10,8 +10,8 @@ using System.IdentityModel.Tokens.Jwt;
 using BattleCalculator.Settings;
 using Microsoft.AspNetCore.Http;
 using BattleCalculator.Model.Entities;
-using BattleCalculator.Data.Abstract;
 using System.Threading.Tasks;
+using BattleCalculator.Data.Repositories.Abstract;
 
 namespace BattleCalculator.Services
 {

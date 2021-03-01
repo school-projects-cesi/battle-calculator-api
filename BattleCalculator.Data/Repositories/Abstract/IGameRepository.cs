@@ -3,7 +3,7 @@ using BattleCalculator.Model.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BattleCalculator.Data.Abstract
+namespace BattleCalculator.Data.Repositories.Abstract
 {
     public interface IGameRepository : IEntityBaseRepository<Game> {
         Task<IEnumerable<Game>> GetBestUsersByLevelAsync(LevelType level, int size = 10);

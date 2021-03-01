@@ -9,8 +9,10 @@ namespace BattleCalculator.Model.Entities
         public string Email { get; set; }
         public string PasswordHashed { get; set; }
 
-        public List<Game> Games { get; set; }
 
+        #region relations
+        public List<Game> Games { get; set; } 
+        #endregion
 
         public User()
         {

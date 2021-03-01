@@ -8,6 +8,7 @@ namespace BattleCalculator.Mappings
 	{
 		public GameProfile()
 		{
+			CreateMap<CreateGameRequest, Game>();
 			CreateMap<Game, CreateGameResponse>();
 		}
 	}
