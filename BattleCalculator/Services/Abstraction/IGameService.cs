@@ -9,6 +9,8 @@ namespace BattleCalculator.Services.Abstraction
 	{
 		Task<Game> CreateAsync(Game model);
 		Task<IEnumerable<(int, Game)>> GetBestUsersByLevelAsync(LevelType level);
-		bool CheckValidGameDate(Game game);
+		bool ValidGameDate(Game game, int plus = 3);
+		Task<Game> FindByUserAsync(int id);
+		Task<Game> EndAsync(int id);
 	}
 }
