@@ -62,6 +62,23 @@ namespace BattleCalculator.Controllers
 			return response;
 		}
 
+		[HttpGet("{id:int}")]
+		public async Task<GetGameResponse> Get(int? id)
+		{
+			if (id == null || id < 1)
+				throw new ApiProblemDetailsException($"Game with id {id} not exist.", StatusCodes.Status404NotFound);
+
+			// récupère le game
+			Game game = await _service.FindByUserAsync(id.Value);
+
+			// vérifie la date
+			if (!_service.ValidGameDate(game) || game.Ended)
+				throw new ApiProblemDetailsException($"Game cant be returned.", StatusCodes.Status403Forbidden);
+
+			// rendu
+			return _mapper.Map<GetGameResponse>(game);
+		}
+
 		[HttpPatch("{id:int}/[action]")]
 		public async Task<CreateGameResponse> End(int? id)
 		{
