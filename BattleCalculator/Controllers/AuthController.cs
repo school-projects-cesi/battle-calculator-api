@@ -84,5 +84,20 @@ namespace BattleCalculator.Controllers
 			return _authService.Authenticate(user.Id);
 		}
 
+		[HttpPost("check/username")]
+		public async Task<bool> CheckUsername([FromBody] CheckUsernameRequest model)
+		{
+			return await _userRepository.IsUsernameUniqueAsync(model.Username);
+
+		}
+
+
+
+		[HttpPost("check/email")]
+		public async Task<bool> CheckEmail([FromBody] CheckEmailRequest model)
+		{
+			return await _userRepository.isEmailUniqueAsync(model.Email);
+		}
+
 	}
 }
