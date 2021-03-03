@@ -36,12 +36,18 @@ namespace BattleCalculator.Controllers
 
 			// vérifie qu'un user existe avec cette email
 			if (user == null)
-				throw new ApiProblemDetailsException($"The username or password is incorrect.", StatusCodes.Status404NotFound);
+			{
+				ModelState.AddModelError(nameof(model.Email), "Nom d'utilisateur ou mot de passe incorrect.");
+				throw new ApiProblemDetailsException(ModelState);
+			}
 
 			bool passwordValid = _authService.VerifyPassword(model.Password, user.PasswordHashed);
 			// vérifie que le password est correct
 			if (!passwordValid)
-				throw new ApiProblemDetailsException($"The username or password is incorrect.", StatusCodes.Status404NotFound);
+			{
+				ModelState.AddModelError(nameof(model.Email), "Nom d'utilisateur ou mot de passe incorrect.");
+				throw new ApiProblemDetailsException(ModelState);
+			}
 
 			// renvoie les données pour l'authenification
 			return _authService.Authenticate(user.Id);

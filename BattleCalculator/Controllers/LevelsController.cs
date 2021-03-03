@@ -24,8 +24,8 @@ namespace BattleCalculator.Controllers
 
 
 		[HttpGet]
-		public IEnumerable<GetLevelListResponse> GetAll()
-			=> _mapper.Map<IEnumerable<GetLevelListResponse>>(Constants.LEVELS.Values);
+		public IEnumerable<GetTinyLevelResponse> GetAll()
+			=> _mapper.Map<IEnumerable<GetTinyLevelResponse>>(Constants.LEVELS.Values);
 
 		[HttpGet("{type:int}")]
 		public GetLevelResponse Get(int type)

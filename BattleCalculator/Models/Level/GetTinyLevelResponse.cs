@@ -4,7 +4,7 @@ using BattleCalculator.Model.Enums;
 
 namespace BattleCalculator.Models.Level
 {
-	public class GetLevelListResponse
+	public class GetTinyLevelResponse
 	{
 		public string Name
 			=> Type.ToString();

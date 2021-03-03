@@ -10,6 +10,7 @@ namespace BattleCalculator.Mappings
 		{
 			CreateMap<CreateGameRequest, Game>();
 			CreateMap<Game, CreateGameResponse>();
+			CreateMap<Game, PatchGameResponse>();
 
 			CreateMap<Game, GetGameResponse>();
 		}

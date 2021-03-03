@@ -10,6 +10,8 @@ namespace BattleCalculator.Mappings
 		{
 			CreateMap<CreateScoreRequest, Score>();
 			CreateMap<Score, CreateScoreResponse>();
+			
+			CreateMap<Score, GetScoreResponse>();
 		}
 	}
 }
