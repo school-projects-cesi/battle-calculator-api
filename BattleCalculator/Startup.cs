@@ -100,6 +100,7 @@ namespace BattleCalculator
 			services.AddTransient<IAuthService, AuthService>();
 			services.AddTransient<IGameService, GameService>();
 			services.AddTransient<IScoreService, ScoreService>();
+			services.AddTransient<IUserService, UserService>();
 
 			// controllers
 			services.AddControllers()
