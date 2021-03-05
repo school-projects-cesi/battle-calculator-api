@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,12 +10,13 @@ namespace BattleCalculator.Models.User
 	public class UpdateUserRequest
 	{
 
-		[JsonProperty("Username")]
+		[MinLength(6)]
 		public string Username { get; set; }
 
 		[EmailAddress]
 		public string Email { get; set; }
 
+		[MinLength(6)]
 		public string Password { get; set; }
 	}
 }
