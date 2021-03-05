@@ -16,17 +16,24 @@ namespace BattleCalculator.Services
 			_userRepository = userRepository;
 			_authService = authService;
 		}
+
+
 		public async Task UpdateAsync(UpdateUserRequest model)
 		{
 			User user = await _authService.GetUserAsync();
+
 			if (!string.IsNullOrWhiteSpace(model.Email))
 				user.Email = model.Email;
 			if (!string.IsNullOrWhiteSpace(model.Username))
 				user.Username = model.Username;
 			if (!string.IsNullOrWhiteSpace(model.Password))
 				user.PasswordHashed = _authService.HashPassword(model.Password);
+
 			_userRepository.Update(user);
 			await _userRepository.CommitAsync();
 		}
+
+		public async Task<User> GetInfoAsync()
+			=> await _authService.GetUserAsync();
 	}
 }

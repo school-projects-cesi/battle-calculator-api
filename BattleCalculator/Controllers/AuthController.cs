@@ -54,7 +54,7 @@ namespace BattleCalculator.Controllers
 		}
 
 		[HttpPost("[action]")]
-		public async Task<AuthenticateResponse> Register([FromBody] RegisterRequest model)
+		public async Task<AuthenticateResponse> Register([FromBody] PostRegisterRequest model)
 		{
 			// vérifie que les données de l'utilisateur sont correct
 			if (!ModelState.IsValid)
