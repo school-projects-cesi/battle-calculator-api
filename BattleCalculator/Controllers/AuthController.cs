@@ -60,19 +60,20 @@ namespace BattleCalculator.Controllers
 			if (!ModelState.IsValid)
 				throw new ApiProblemDetailsException(ModelState);
 
-			bool emailUnique = await _userRepository.isEmailUniqueAsync(model.Email);
-			// vérifie que l'email n'est pas déjà utilisé
-			if (!emailUnique)
-			{
-				ModelState.AddModelError(nameof(model.Email), "This email already exists.");
-				throw new ApiProblemDetailsException(ModelState);
-			}
 
 			bool usernameUniq = await _userRepository.IsUsernameUniqueAsync(model.Username);
 			// vérifie que le pseudo n'est pas déjà utilisé
 			if (!usernameUniq)
 			{
-				ModelState.AddModelError(nameof(model.Username), "This username already exists.");
+				ModelState.AddModelError(nameof(model.Username), "Ce nom d'utilisateur existe déja");
+				throw new ApiProblemDetailsException(ModelState);
+			}
+
+			bool emailUnique = await _userRepository.isEmailUniqueAsync(model.Email);
+			// vérifie que l'email n'est pas déjà utilisé
+			if (!emailUnique)
+			{
+				ModelState.AddModelError(nameof(model.Email), "Cette adresse mail existe déja");
 				throw new ApiProblemDetailsException(ModelState);
 			}
 
@@ -89,6 +90,5 @@ namespace BattleCalculator.Controllers
 			// renvoie les données pour l'authenification
 			return _authService.Authenticate(user.Id);
 		}
-
 	}
 }
