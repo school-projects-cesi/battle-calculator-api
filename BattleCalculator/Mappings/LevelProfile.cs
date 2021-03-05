@@ -8,7 +8,7 @@ namespace BattleCalculator.Mappings
 	{
 		public LevelProfile()
 		{
-			CreateMap<Level, GetLevelListResponse>();
+			CreateMap<Level, GetTinyLevelResponse>();
 			CreateMap<LevelOperator, GetLevelOperatorListResponse>();
 
 			CreateMap<Level, GetLevelResponse>();

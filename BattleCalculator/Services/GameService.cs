@@ -32,7 +32,7 @@ namespace BattleCalculator.Services
 		{
 			int user = _authService.GetUserId();
 
-			Game game = await _repository.FindAsync(id);
+			Game game = await _repository.FindAsync(id, g => g.Scores);
 			if (game == null || game.UserId != user)
 				throw new ApiProblemDetailsException("Game not exist", StatusCodes.Status404NotFound);
 
@@ -65,8 +65,6 @@ namespace BattleCalculator.Services
 			return game;
 		}
 
-
-
 		public async Task<Game> EndAsync(int id)
 		{
 			int user = _authService.GetUserId();
@@ -76,7 +74,7 @@ namespace BattleCalculator.Services
 				throw new ApiProblemDetailsException("Game not exist", StatusCodes.Status404NotFound);
 
 			// vérifie la date
-			if (!ValidGameDate(game, 60))
+			if (!ValidGameDate(game, 60) || game.Ended)
 				throw new ApiProblemDetailsException($"Game cant be updated.", StatusCodes.Status403Forbidden);
 
 			// update

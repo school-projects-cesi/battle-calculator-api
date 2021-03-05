@@ -19,6 +19,7 @@ using System.IO;
 using VueCliMiddleware;
 using System;
 using BattleCalculator.Data.Repositories.Abstract;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BattleCalculator
 {
@@ -84,6 +85,9 @@ namespace BattleCalculator
 						)
 					};
 				});
+
+			// validation
+			services.Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true);
 
 			// mapper
 			services.AddAutoMapper(typeof(Startup));

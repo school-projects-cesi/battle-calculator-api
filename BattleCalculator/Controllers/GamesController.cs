@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoWrapper.Wrappers;
+using BattleCalculator.Common;
 using BattleCalculator.Common.Data.Levels;
 using BattleCalculator.Controllers.Abstract;
 using BattleCalculator.Model.Entities;
 using BattleCalculator.Model.Enums;
 using BattleCalculator.Models.Game;
+using BattleCalculator.Models.Level;
 using BattleCalculator.Models.Score;
 using BattleCalculator.Services.Abstraction;
 using Microsoft.AspNetCore.Authorization;
@@ -76,19 +78,24 @@ namespace BattleCalculator.Controllers
 				throw new ApiProblemDetailsException($"Game cant be returned.", StatusCodes.Status403Forbidden);
 
 			// rendu
-			return _mapper.Map<GetGameResponse>(game);
+			GetGameResponse response = _mapper.Map<GetGameResponse>(game);
+			response.Score = _mapper.Map<GetScoreResponse>(game.Scores.LastOrDefault());
+			response.Started = game.Scores.Any(s => s.AnsweredAt != null);
+			return response;
 		}
 
 		[HttpPatch("{id:int}/[action]")]
-		public async Task<CreateGameResponse> End(int? id)
+		public async Task<PatchGameResponse> End(int? id)
 		{
 			if (id == null || id < 1)
 				throw new ApiProblemDetailsException($"Game with id {id} not exist.", StatusCodes.Status404NotFound);
 
 			// récupère le game
 			Game game = await _service.EndAsync(id.Value);
+			PatchGameResponse response = _mapper.Map<PatchGameResponse>(game);
+			response.LevelData = _mapper.Map<GetTinyLevelResponse>(Constants.LEVELS[(LevelType)game.Level]);
 			// rendu
-			return _mapper.Map<CreateGameResponse>(game);
+			return response;
 		}
 
 
