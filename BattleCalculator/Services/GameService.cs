@@ -52,7 +52,7 @@ namespace BattleCalculator.Services
 				Level = model.Level,
 				Chrono = _appSettings.Chrono,
 				TotalScore = 0,
-				CreatedAt = DateTime.Now,
+				CreatedAt = DateTime.UtcNow,
 				Ended = false
 			};
 
@@ -79,7 +79,7 @@ namespace BattleCalculator.Services
 
 			// update
 			game.Ended = true;
-			game.EndedAt = DateTime.Now;
+			game.EndedAt = DateTime.UtcNow;
 			game.TotalScore = game.Scores.Where(s => s.AnsweredAt != null && s.Result == s.UserResult).Count();
 
 			// database
@@ -97,11 +97,11 @@ namespace BattleCalculator.Services
 			// TODO: ajouter la gestion des égaltiés
 			return games
 				.OrderByDescending(g => g.TotalScore)
-				.ThenByDescending(g => g.EndedAt)
+				.ThenBy(g => g.EndedAt)
 				.Select(g => (lastPosition++, g));
 		}
 
 		public bool ValidGameDate(Game game, int plus = 3)
-			=> game.CreatedAt.AddSeconds(_appSettings.Chrono + plus) > DateTime.Now;
+			=> game.CreatedAt.AddSeconds(_appSettings.Chrono + plus) > DateTime.UtcNow;
 	}
 }

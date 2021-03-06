@@ -126,7 +126,7 @@ namespace BattleCalculator.Controllers
 
 			// mise à jour de l'objet score
 			score.UserResult = model.Result;
-			score.AnsweredAt = DateTime.Now;
+			score.AnsweredAt = DateTime.UtcNow;
 			await _scoreService.UpdateAsync(score);
 			Score newScore = _scoreService.GenerateScore(score.Game.GetLevelType());
 			await _scoreService.CreateAsync(score.Game.Id, newScore);

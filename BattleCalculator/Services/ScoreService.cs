@@ -37,7 +37,7 @@ namespace BattleCalculator.Services
 		public async Task<Score> CreateAsync(int gameId, Score score)
 		{
 			score.GameId = gameId;
-			score.CreatedAt = DateTime.Now;
+			score.CreatedAt = DateTime.UtcNow;
 
 			await _repository.AddAsync(score);
 			await _repository.CommitAsync();
@@ -56,7 +56,7 @@ namespace BattleCalculator.Services
 			Level level = Constants.LEVELS[levelType];
 			LevelOperatorCalcul calcul = level.PickRandomOperator().GenerateCalcul();
 			Score score = calcul.TransformToScore();
-			score.CreatedAt = DateTime.Now;
+			score.CreatedAt = DateTime.UtcNow;
 			return score;
 		}
 	}
