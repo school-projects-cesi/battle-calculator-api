@@ -1,19 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
-using Newtonsoft.Json;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace BattleCalculator.Models.User
 {
 	public class UpdateUserRequest
 	{
 
-		[MinLength(6)]
+		[MinLength(2), RegularExpression(@"^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$", ErrorMessage = "Le nom utilisé n'est pas valide.")]
 		public string Username { get; set; }
 
-		[EmailAddress]
+		[RegularExpression(@"^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$", ErrorMessage = "Le valeur renseignée n'est pas une adresse mail valide.")]
 		public string Email { get; set; }
 
 		[MinLength(6)]
