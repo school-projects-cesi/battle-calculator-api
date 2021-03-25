@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DefaultSeedConsoleApp": {
+      "commandName": "Project",
+      "commandLineArgs": "--size 22"
+    }
+  }
+}

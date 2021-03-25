@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
+    <PackageReference Include="Bogus" Version="33.0.2" />
+    <PackageReference Include="CommandLineParser" Version="2.8.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.12" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BattleCalculator.Data\BattleCalculator.Data.csproj" />
+    <ProjectReference Include="..\BattleCalculator.Model\BattleCalculator.Model.csproj" />
+  </ItemGroup>
+
+</Project>
