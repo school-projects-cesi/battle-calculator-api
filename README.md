@@ -14,6 +14,8 @@
 <!-- TOC depthfrom:2 -->
 
 - [À propos du projet](#%C3%A0-propos-du-projet)
+  - [Routes](#routes)
+  - [Bibliothèques](#biblioth%C3%A8ques)
   - [Dépendances](#d%C3%A9pendances)
 - [Pour commencer](#pour-commencer)
   - [Prérequis](#pr%C3%A9requis)
@@ -32,6 +34,32 @@ Partie Back-end de l'application.
 **Sources**
 
 [Front-End](https://github.com/school-projects-cesi/battle-calculator-client-web)
+
+### Routes
+
+- **Auth**
+  - Login : _Permet de se connecter avec email et mot de passe_
+  - Register : _Permet de créer un nouveau compte utilisateur_
+- **Users**
+  - Me : _Permet de récupérer les infos de l'utilisateur connecté_
+  - [Patch] : _Permet de modifier l'email et le mot de passe de l'utilisateur_
+- **Games**
+  - [Get] : _Permet de récupérer une game avec un id_
+  - Best : _Permet de récupérer les meilleurs games des 10 meilleurs joueurs_
+  - [Post] : _Permet de créer une nouvelle game_
+  - End : _Permet de terminer une game, pour le calcul du total score_
+  - **Score**
+    - [Patch] : _Permet de modifier un score_
+- **Levels**
+  - [Get] : _Permet de récupérer toutes les difficultés_
+  - [Get]{id} : _Permet de récupérer les infos d'une difficulté_
+
+### Bibliothèques
+
+- [EntityFramework Core](https://github.com/dotnet/efcore)
+- [AutoMapper](https://github.com/AutoMapper/AutoMapper)
+- [AutoWrapper](https://github.com/proudmonkey/AutoWrapper)
+- [bcrypt.net](https://github.com/BcryptNet/bcrypt.net)
 
 ### Dépendances
 
