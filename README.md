@@ -6,7 +6,7 @@
 <h1 align="center">
 	<b>BATTLE CALCULATOR</b>
 	<br />
-	<small align="center">Client Web</small>
+	<small align="center">API</small>
 </h1>
 	
 <details open="open">
